@@ -6,21 +6,19 @@ function [coefficient_vector] = func_fit(X,Y,type,basis,parameters)
     %    "interpolation" - Generate interpolating polynomial for data
     %    "approximation" - Generate approximate polynomial for data
     % basis - ("newton", "monomial")
-    %    "newton" - Newton polynomial interpolation
-    %    "monomial" - Monomial polynomial interpolation
+    %    "poly" - Newton polynomial interpolation
+    %    "trig" - Trig interpolation
     % parameters - Number of parameters to approximate when 'approximate' is selected
     %
     % Output
     % [coefficient_vector] vector of coefficients for approximate or interpolating polynomial
+    
     [~, input_size] = size(X)
+    
+    % Handle both poly and trig interpolation
     if type == "interpolation"
-        if basis == "monomial"
-            % Create matrix for basis functions
-            basis_mat = []
-            for i = 1:input_size
-                basis_mat = [basis_mat, X'.^(i-1)];
-            end
-        elseif basis == "newton"
+        % Poly
+        if basis == "poly"
             basis_mat = ones(input_size, 1)
             for i = 1:input_size - 1
                 col = []
@@ -29,10 +27,21 @@ function [coefficient_vector] = func_fit(X,Y,type,basis,parameters)
                 end
                 basis_mat = [basis_mat, col']
             end
+        
+        % Trig
+        elseif basis == "trig"
+            % TODO
         end
         coefficient_vector = (basis_mat \ Y');
+    
+    % Handle both poly and trig approximation
     elseif type == "approximation"
-        
+        % Poly
+        if basis == "poly"
+            % TODO
+        elseif basis == "trig"
+            % TODO
+        end
     end
        
 end

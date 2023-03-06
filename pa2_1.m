@@ -8,26 +8,19 @@ Y3 = [-27, -1, 0]
 
 % 1-1
 % Display scatterplots of the data in two figures
-% figure()
-% scatter(X1, Y1)
-% figure()
-% scatter(X2, Y2)
+figure()
+scatter(X1, Y1)
+figure()
+scatter(X2, Y2)
 
 % 1-2
-% For dataset 1 (X1, Y1), the Monomial basis function can be used due to
-% its simplicity as well as because there are only 10 data points, meaning
-% that the monomial basis function won't suffer too much from becoming
-% ill-conditioned, since we will only have to interpolate a polynomial of
-% degree 9. The Newton basis function can also be used in this case.
+% For dataset 1 (X1, Y1), the Polynomial basis function seems appropriate
+% since the distribution of data does not seem to follow a smooth curve and
+% does not resemble a repeating pattern of any kind.
 
-% For dataset 2 (X2, Y2), the Newton basis function is appropriate since
-% there are many data points, and interpolation via the Newton basis
-% function can be updated in an iterative way, such that if we add new data
-% points to the data set, we don't have to redo all of the calculations for
-% the interpolant whenever we need to add to the input data. Additionally,
-% for large degree polynomials, the lagrange basis functions are going to
-% be much more expensive to calculate, and the monomial basis functions get
-% more ill-conditioned the larger the degree of the polynomial is.
+% For dataset 2 (X2, Y2), the Trig? basis function is appropriate since
+% the distribution of data seems to follow a pattern that is resembling
+% part of cosine wave.
 
 % 1-3
 % For dataset 1, we should use approximation since the scatterplot shows
@@ -38,6 +31,6 @@ Y3 = [-27, -1, 0]
 % For dataset 2, we can use either approximation or interpolation, although
 % interpolation may make more sense since the data seems to follow a clear
 % pattern and interpolation should result in a smooth plot that isn't
-% subject to too many errors.
+% subject to overfitting.
 
-func_fit(X3, Y3, "interpolation", "newton", 1)
+func_fit(X3, Y3, "interpolation", "monomial", 1)
