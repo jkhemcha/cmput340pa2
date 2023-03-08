@@ -1,7 +1,6 @@
 function plot_trig(coefficients, space, lim, color)
     % Function used for plotting polynomial created with monomial basis
     [input_size, ~] = size(coefficients);   
-    disp(size(coefficients))
     K = floor((input_size-1)/2);
     ans = [];
     for i = space
@@ -14,7 +13,6 @@ function plot_trig(coefficients, space, lim, color)
         end
         ans = [ans, val];
     end
-    %disp(ans)
     plot(space, ans, color)
     ylim(lim);
 end

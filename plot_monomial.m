@@ -1,6 +1,6 @@
-function plot_monomial(coefficients, space, lim)
+function plot_monomial(coefficients, space, lim, color)
     % Function used for plotting polynomial created with monomial basis
-    [~, input_size] = size(coefficients);   
+    [input_size, ~] = size(coefficients);   
     ans = [];
     for i = space
         val = 0;
@@ -9,8 +9,7 @@ function plot_monomial(coefficients, space, lim)
         end
         ans = [ans, val];
     end
-    disp(ans)
-    plot(space, ans, "red")
+    plot(space, ans, color)
     ylim(lim)
 end
 
