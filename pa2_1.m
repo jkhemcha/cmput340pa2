@@ -7,8 +7,8 @@ Y3 = [-27, -1, 0];
 
 % 1-1
 % Display scatterplots of the data in two figures
-%fig1 = figure();
-%scatter(X1, Y1)
+fig1 = figure();
+scatter(X1, Y1)
 %fig2 = figure();
 %scatter(X2, Y2)
 %fig3 = figure();
@@ -46,11 +46,23 @@ interpolation_coefficient_vector_X1 = func_fit(X1, Y1, "interpolate", "trig", 0)
 %interpolation_evaluation_X3 = polyval(flip(interpolation_coefficient_vector_X3)', X3);
 
 % Approximation
-approximation_coefficient_vector_X1 = func_fit(X1, Y1, "approximate", "trig", 5);
-approximation_evaluation_X1 = polyval(flip(approximation_coefficient_vector_X1)', X1);
+approximation_coefficient_vector_X1 = func_fit(X1, Y1, "approximate", "trig", 3);
+disp(interpolation_coefficient_vector_X1)
+%figure(fig1)
+%hold on
+%scatter(X1, Y1, "blue")
+%plot_trig(interpolation_coefficient_vector_X1, linspace(-10, 10, 100), [-1, 1], "red")
+%hold off
+%approximation_evaluation_X1 = polyval(flip(approximation_coefficient_vector_X1)', X1);
 
-approximation_coefficient_vector_X2 = func_fit(X2, Y2, "approximate", "poly", 30);
-approximation_evaluation_X2 = polyval(flip(approximation_coefficient_vector_X2)', X2);
+%approximation_coefficient_vector_X2 = func_fit(X2, Y2, "approximate", "poly", 30);
+figure(fig1)
+hold on
+scatter(X1, Y1, "blue")
+plot_trig(approximation_coefficient_vector_X1, linspace(-10, 10, 100), [-1, 1], "green")
+plot_trig(interpolation_coefficient_vector_X1, linspace(-10, 10, 100), [-1, 1], "red")
+hold off
+%approximation_evaluation_X2 = polyval(flip(approximation_coefficient_vector_X2)', X2);
 
 approximation_coefficient_vector_X3 = func_fit(X3, Y3, "approximate", "poly", 2);
 approximation_evaluation_X3 = polyval(flip(approximation_coefficient_vector_X3)', X3);

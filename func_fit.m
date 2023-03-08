@@ -26,21 +26,23 @@ function [coefficient_vector] = func_fit(X,Y,type,basis,parameters)
             coefficient_vector = (basis_mat \ Y');
         % Trig
         elseif basis == "trig"
-            basis_mat = ones(input_size, 1)
+            basis_mat = ones(input_size, 1);
             % Cos
             for i = 1:floor((input_size - 1) / 2)
-                basis_mat = [basis_mat, i * cos(X')];
+                basis_mat = [basis_mat, cos(i*X')];
             end
             % Sin
             for i = 1:floor((input_size - 1) / 2)
-                basis_mat = [basis_mat, i * sin(X')];
+                basis_mat = [basis_mat, sin(i * X')];
             end 
-            [~, basis_mat_size] = size(basis_mat)
+            [~, basis_mat_size] = size(basis_mat);
             if basis_mat_size < input_size
                % Sin once more for even case
-               basis_mat = [basis_mat, ((floor((input_size - 1) / 2)) + 1) * sin(X')];
+               i = floor((input_size - 1) / 2) + 1
+               basis_mat = [basis_mat, sin(i * X')];
             end
             disp(basis_mat)
+            disp(Y')
             coefficient_vector = (basis_mat \ Y');
         end
     
@@ -56,21 +58,25 @@ function [coefficient_vector] = func_fit(X,Y,type,basis,parameters)
             %coefficient_vector = (basis_mat \ Y');
             coefficient_vector = (basis_mat' * basis_mat) \ (basis_mat' * Y');
         elseif basis == "trig"
-            basis_mat = ones(input_size, 1)
+            basis_mat = ones(input_size, 1);
             % Cos
             for i = 1:floor((parameters - 1) / 2)
-                basis_mat = [basis_mat, i * cos(X')];
+                %disp(basis_mat)
+                %disp(X')
+                %disp(i)
+                basis_mat = [basis_mat, cos(i*X')];
             end
             % Sin
             for i = 1:floor((parameters - 1) / 2)
-                basis_mat = [basis_mat, i * sin(X')];
+                basis_mat = [basis_mat, sin(i * X')];
             end 
-            [~, basis_mat_size] = size(basis_mat)
+            [~, basis_mat_size] = size(basis_mat);
             if basis_mat_size < parameters
                % Sin once more for even case
-               basis_mat = [basis_mat, ((floor((parameters - 1) / 2)) + 1) * sin(X')];
+               i = floor((parameters - 1) / 2) + 1
+               basis_mat = [basis_mat, sin(i * X')];
             end
-            disp(basis_mat)
+            %disp(basis_mat)
             % Solve normal equations
             coefficient_vector = (basis_mat' * basis_mat) \ (basis_mat' * Y');
         end
