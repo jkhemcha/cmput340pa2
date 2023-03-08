@@ -64,7 +64,7 @@ plot_trig(interpolation_coefficient_vector_X1, linspace(-10, 10, 100), [-1, 1], 
 hold off
 %approximation_evaluation_X2 = polyval(flip(approximation_coefficient_vector_X2)', X2);
 
-approximation_coefficient_vector_X3 = func_fit(X3, Y3, "approximate", "poly", 2);
+approximation_coefficient_vector_X3 = func_fit(X3, Y3, "approximate", "poly", 6);
 approximation_evaluation_X3 = polyval(flip(approximation_coefficient_vector_X3)', X3);
 
 % Re-plot the figures with the lines over top.
