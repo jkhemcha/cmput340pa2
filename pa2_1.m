@@ -7,20 +7,21 @@ Y3 = [-27, -1, 0];
 
 % 1-1
 % Display scatterplots of the data in two figures
-fig1 = figure();
-scatter(X1, Y1)
-fig2 = figure();
-scatter(X2, Y2)
-fig3 = figure();
-scatter(X3, Y3)
+%fig1 = figure();
+%scatter(X1, Y1)
+%fig2 = figure();
+%scatter(X2, Y2)
+%fig3 = figure();
+%scatter(X3, Y3)
 
 % 1-2
-% For dataset 1 (X1, Y1), the Polynomial basis function seems appropriate
-% since the distribution of data does not seem to follow a smooth curve and
-% does not resemble a repeating pattern of any kind.
+% For dataset 1 (X1, Y1), the Trig basis function seems appropriate
+% since the distribution of data seems to follow a repeating / sinusodal
+% pattern.
 
-% For dataset 2 (X2, Y2), the Trig basis function is appropriate since
-% the distribution of data seems to follow a pattern that is sinusodal.
+% For dataset 2 (X2, Y2), the Polynomial basis function is appropriate since
+% the distribution of data seems to follow more of a polynomial function
+% (parabola) and is not showing patterns of repetition.
 
 % 1-3
 % For dataset 1, we should use approximation since the scatterplot shows
@@ -29,26 +30,27 @@ scatter(X3, Y3)
 % (overfitting)
 
 % For dataset 2, we can use either approximation or interpolation, although
-% interpolation may make more sense since the data seems to follow a clear
-% pattern and interpolation should result in a smooth plot that isn't
+% interpolation may make more sense since the data seems to evenly
+% distributed and interpolation should result in a smooth plot that isn't
 % subject to overfitting.
 
 % Interpolation
-interpolation_coefficient_vector_X1 = func_fit(X1, Y1, "interpolate", "poly", 0);
-interpolation_evaluation_X1 = polyval(flip(interpolation_coefficient_vector_X1)', X1);
+interpolation_coefficient_vector_X1 = func_fit(X1, Y1, "interpolate", "trig", 0);
+%interpolation_evaluation_X1 = polyval(flip(interpolation_coefficient_vector_X1)', X1);
 
-%interpolation_coefficient_vector_X2 = func_fit(X2, Y2, "interpolate", "trig", 0);
-%interpolation_evaluation_X2 = polyval(flip(interpolation_coefficient_vector_X2)', X2);
+%interpolation_coefficient_vector_X2 = func_fit(X2, Y2, "interpolate", "poly", 0);
+% Make sure that it is in row form
+%interpolation_coefficient_vector_X2 = interpolation_coefficient_vector_X2';
 
-interpolation_coefficient_vector_X3 = func_fit(X3, Y3, "interpolate", "poly", 0);
-interpolation_evaluation_X3 = polyval(flip(interpolation_coefficient_vector_X3)', X3);
+%interpolation_coefficient_vector_X3 = func_fit(X3, Y3, "interpolate", "poly", 0);
+%interpolation_evaluation_X3 = polyval(flip(interpolation_coefficient_vector_X3)', X3);
 
 % Approximation
-approximation_coefficient_vector_X1 = func_fit(X1, Y1, "approximate", "poly", 5);
+approximation_coefficient_vector_X1 = func_fit(X1, Y1, "approximate", "trig", 5);
 approximation_evaluation_X1 = polyval(flip(approximation_coefficient_vector_X1)', X1);
 
-%approximation_coefficient_vector_X2 = func_fit(X2, Y2, "approximate", "trig", 30);
-%approximation_evaluation_X2 = polyval(flip(approximation_coefficient_vector_X2)', X2);
+approximation_coefficient_vector_X2 = func_fit(X2, Y2, "approximate", "poly", 30);
+approximation_evaluation_X2 = polyval(flip(approximation_coefficient_vector_X2)', X2);
 
 approximation_coefficient_vector_X3 = func_fit(X3, Y3, "approximate", "poly", 2);
 approximation_evaluation_X3 = polyval(flip(approximation_coefficient_vector_X3)', X3);
@@ -63,12 +65,13 @@ plot(X1, interpolation_evaluation_X1, "red")
 plot(X1, approximation_evaluation_X1, "green")
 hold off
 
-%figure(fig2);
-%hold on
-%scatter(X2, Y2, "blue")
-%plot(X2, interpolation_evaluation_X2, "red")
-%plot(X2, approximation_evaluation_X2, "green")
-%hold off
+figure(fig2);
+hold on
+scatter(X2, Y2, "blue")
+plot_monomial(interpolation_coefficient_vector_X2, linspace(-5, 5, 100), [-5, 40])
+plot_monomial(approximation_coefficient_vector_X2, linspace(-5, 5, 100), [-5, 40])
+plot(X2, approximation_evaluation_X2, "green")
+hold off
 
 figure(fig3);
 hold on
