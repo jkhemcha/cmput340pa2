@@ -12,7 +12,7 @@ fig1 = figure();
 scatter(T, D, "blue")
 
 % Solve for the coefficients of the interpolation polynomial
-coefficient_vector_A = func_fit(T, D, "interpolate", "poly", 0);
+[basis_mat_A, coefficient_vector_A] = func_fit(T, D, "interpolate", "poly", 0);
 
 % Plot the interploation polynomial over the scatterplot
 figure(fig1)
@@ -26,21 +26,13 @@ hold off
 % did not follow what you would expect given the nature of the physics
 % problem.
 
-% Calculate residuals when comparing data to theoretical values
-% D = 0.5g * time^2
-% g is approximated at 9.81
-g = 9.81
-residuals = []
-relative_residuals = []
-for i = 1:10
-    residuals(i) = D(i + 1) - (486 - (0.5 *g * i^2));
-    relative_residuals(i) = residuals(i) / D(i + 1);
-end
-disp(residuals)
-disp(relative_residuals)
+% Calculate residuals
+residuals_A = abs(D' - (basis_mat_A * coefficient_vector_A))
+relative_residuals_A = residuals_A ./ abs(D')
 
-% Based on the above residuals, we can see that the errors are relatively
-% very small compared to what we would expecct from the physics experiment.
+% Based on the above residuals, we can see that the errors from my model relatively
+% small when compared with the dataset as well as what we would expect from
+% the physics experiment.
 % Therefore, the model seems to be a good representation of reality.
 
 % PROBLEM B.
@@ -52,7 +44,7 @@ fig2 = figure();
 scatter(x, y, "blue")
 
 % Solve for the coefficients of the approximate polynomial
-coefficient_vector_B = func_fit(x, y, "approximate", "poly", 3);
+[basis_mat_B, coefficient_vector_B] = func_fit(x, y, "approximate", "poly", 3);
 
 % Plot the approximate polynomial over the scatterplot
 figure(fig2)
@@ -60,6 +52,13 @@ hold on
 scatter(x, y, "blue")
 plot_monomial(coefficient_vector_B, x, [-5,60], "green")
 hold off
+
+% Calculate residuals
+residuals_B = abs(y' - (basis_mat_B * coefficient_vector_B))
+relative_residuals_B = residuals_B ./ abs(y')
+
+% Based on the above residuals, we can see that the errors from my model are relatively
+% small when compared with the original values of the dataset, meaning the model is quite good.
 
 % The equation I got by solving for the coefficients was:
 % -0.1330 + 0.0067t + 1.0114t^2

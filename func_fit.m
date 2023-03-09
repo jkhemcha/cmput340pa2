@@ -1,4 +1,4 @@
-function [coefficient_vector] = func_fit(X,Y,type,basis,parameters)
+function [basis_mat, coefficient_vector] = func_fit(X,Y,type,basis,parameters)
     % Input
     % X - input data (t)
     % Y - output data (y)

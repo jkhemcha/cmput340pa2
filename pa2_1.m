@@ -32,12 +32,12 @@ scatter(X2, Y2)
 % with a very high degree, since it becomes more ill-conditioned.
 
 % Interpolation
-interpolation_coefficient_vector_X1 = func_fit(X1, Y1, "interpolate", "trig", 0);
-interpolation_coefficient_vector_X2 = func_fit(X2, Y2, "interpolate", "poly", 0);
+[basis_mat_X1_i, interpolation_coefficient_vector_X1] = func_fit(X1, Y1, "interpolate", "trig", 0);
+[basis_mat_X2_i, interpolation_coefficient_vector_X2] = func_fit(X2, Y2, "interpolate", "poly", 0);
 
 % Approximation
-approximation_coefficient_vector_X1 = func_fit(X1, Y1, "approximate", "trig", 3);
-approximation_coefficient_vector_X2 = func_fit(X2, Y2, "approximate", "poly", 5);
+[basis_mat_X1_a, approximation_coefficient_vector_X1] = func_fit(X1, Y1, "approximate", "trig", 3);
+[basis_mat_X2_a,approximation_coefficient_vector_X2] = func_fit(X2, Y2, "approximate", "poly", 5);
 
 % Re-plot the figures with the lines over top.
 % Green = approximation
