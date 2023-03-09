@@ -20,27 +20,24 @@ scatter(X2, Y2)
 % (parabola) and is not showing patterns of repetition.
 
 % 1-3
-% For dataset 1, we should use approximation since the scatterplot shows
-% that the data is much more subject to errors (data has no clear
-% trend/pattern) and interpolation would follow these errors closely
-% (overfitting)
+% For dataset 1, we should use interpolation since the scatterplot shows
+% that the data follows a clear sinusodal pattern with no clear outliers.
+% making interpolation provide a smooth curve.
 
-% For dataset 2, we can use either approximation or interpolation, although
-% interpolation may make more sense since the data seems to evenly
-% distributed and interpolation should result in a smooth plot that isn't
-% subject to overfitting.
+% For dataset 2, we should use approximation
+% since there are many more data points, and small inconsistencies
+% in the data points will result in the interpolating function
+% overfitting. Since I am using the monomial basis
+% function, we also want to avoid creating an interpolating polynomial
+% with a very high degree, since it becomes more ill-conditioned.
 
 % Interpolation
 interpolation_coefficient_vector_X1 = func_fit(X1, Y1, "interpolate", "trig", 0);
 interpolation_coefficient_vector_X2 = func_fit(X2, Y2, "interpolate", "poly", 0);
-% Make sure that it is in row form for plot_monomial
-%interpolation_coefficient_vector_X2 = interpolation_coefficient_vector_X2';
 
 % Approximation
 approximation_coefficient_vector_X1 = func_fit(X1, Y1, "approximate", "trig", 3);
-approximation_coefficient_vector_X2 = func_fit(X2, Y2, "approximate", "poly", 30);
-% Make sure that it is in row form for plot_monomial
-%approximation_coefficient_vector_X2 = approximation_coefficient_vector_X2';
+approximation_coefficient_vector_X2 = func_fit(X2, Y2, "approximate", "poly", 5);
 
 % Re-plot the figures with the lines over top.
 % Green = approximation
